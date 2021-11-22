@@ -5,3 +5,5 @@
 *.dylib
 *.test
 *.out
+pwc
+card.*

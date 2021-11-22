@@ -1,23 +1,31 @@
 package util
 
 import (
-	"github.com/golang/freetype/truetype"
+	"github.com/go-fonts/dejavu/dejavusansmono"
 	"golang.org/x/image/font"
-	"golang.org/x/image/font/gofont/gomono"
+	"golang.org/x/image/font/opentype"
+
+	"golang.org/x/image/font/sfnt"
 )
 
-func LoadGomonoFace(size int, dpi int) (*font.Face, error) {
-	ttf, err := truetype.Parse(gomono.TTF)
+// LoadFontFace godoc
+// Loads dejavusansmono and returns *font.Face with full hinting
+func LoadFontFace(size int, dpi int) (*font.Face, error) {
+	ttf, err := sfnt.Parse(dejavusansmono.TTF)
 	if err != nil {
 		return nil, err
 	}
 
-	//Create Font.Face from font
-	face := truetype.NewFace(ttf, &truetype.Options{
+	// Create Font.Face from font
+	face, err := opentype.NewFace(ttf, &opentype.FaceOptions{
 		Size:    float64(size),
 		DPI:     float64(dpi),
-		Hinting: font.HintingNone,
+		Hinting: font.HintingFull,
 	})
+
+	if err != nil {
+		return nil, err
+	}
 
 	return &face, nil
 }

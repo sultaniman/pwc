@@ -4,19 +4,6 @@ import (
 	"github.com/imanhodjaev/pwc/util"
 )
 
-const (
-	AlphabetWidth          = 29
-	AlphabetHeight         = 9
-	AlphabetBodyHeight     = 8
-	ClassicHeaderRow       = "■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�"
-	Numbers                = "0123456789"
-	AlphabetLower          = "abcdefghijklmnopqrstuvwxyz"
-	AlphabetUpper          = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	Symbols                = "@#$%&*<>?€+{}[]()/\\"
-	AlphaNumeric           = Numbers + AlphabetLower + AlphabetUpper
-	AlphaNumericAndSymbols = AlphaNumeric + Symbols
-)
-
 type Alphabet struct {
 	Letters string
 	Runes   []rune

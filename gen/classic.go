@@ -1,11 +1,15 @@
 package gen
 
+import (
+	"github.com/imanhodjaev/pwc/card"
+)
+
 type ClassicCard struct {
 	Rows    []string
-	Context *Context
+	Context *AlphabetCollection
 }
 
-type Context struct {
+type AlphabetCollection struct {
 	Numeric                *Alphabet
 	AlphaNumeric           *Alphabet
 	AlphaNumericAndSymbols *Alphabet
@@ -13,10 +17,10 @@ type Context struct {
 
 func NewClassicCard() *ClassicCard {
 	return &ClassicCard{
-		Context: &Context{
-			Numeric:                NewAlphabet(Numbers),
-			AlphaNumeric:           NewAlphabet(AlphaNumeric),
-			AlphaNumericAndSymbols: NewAlphabet(AlphaNumericAndSymbols),
+		Context: &AlphabetCollection{
+			Numeric:                NewAlphabet(card.Numbers),
+			AlphaNumeric:           NewAlphabet(card.AlphaNumeric),
+			AlphaNumericAndSymbols: NewAlphabet(card.AlphaNumericAndSymbols),
 		},
 	}
 }
@@ -31,11 +35,11 @@ func (sr *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) {
 	rows := 0
 
 	for {
-		if rows >= AlphabetBodyHeight {
+		if rows >= card.AlphabetBodyHeight {
 			break
 		}
 
-		if count >= AlphabetWidth {
+		if count >= card.AlphabetWidth {
 			sr.Rows = append(sr.Rows, chars)
 			count = 0
 			chars = ""
@@ -53,7 +57,7 @@ func (sr *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) {
 			nextChar = sr.Context.AlphaNumericAndSymbols.Next()
 		}
 
-		if digitsOnlyArea && rows > (AlphabetBodyHeight/2)-1 {
+		if digitsOnlyArea && rows > (card.AlphabetBodyHeight/2)-1 {
 			nextChar = sr.Context.Numeric.Next()
 		}
 
