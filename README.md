@@ -1,5 +1,18 @@
 # PWC
 
+## Build
+
+```sh
+$ go build -o pwc
+```
+
+## Use
+
+```sh
+./pwc classic -h
+```
+
+## Misc
 ```
 Alphabets
 
