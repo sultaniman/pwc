@@ -125,7 +125,7 @@ func DeriveKey(key, salt []byte) ([]byte, []byte, error) {
 		}
 	}
 
-	key, err := scrypt.Key(key, salt, 10000, 8, 1, 32)
+	key, err := scrypt.Key(key, salt, 16384, 8, 1, 32)
 	if err != nil {
 		return nil, nil, err
 	}
