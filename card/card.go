@@ -13,11 +13,14 @@ const (
 	Height              = 680
 	MarginTop           = 10
 	MarginRight         = 70
-	MarginLeft          = 15
+	MarginLeft          = 22
+	ColorRowMarginLeft  = 38
+	PaddingTop          = 70
+	PaddingLeft         = 66
 	HeaderMarginLeft    = MarginLeft * 4
 	RowIndexMargin      = 5
 	FontSize            = 10
-	CardKeyBottomMargin = Height - 35
+	PassKeyBottomMargin = Height - 35
 )
 
 type Canvas struct {
@@ -36,7 +39,7 @@ func (c *Canvas) ColorizeRows(rowHeight float64) {
 	for i, col := range Colors {
 		c.Context.SetColor(col)
 		c.Context.DrawRectangle(
-			MarginLeft,
+			ColorRowMarginLeft,
 			MarginTop+rowHeight*float64(i+1),
 			float64(c.Context.Width()-MarginRight),
 			rowHeight,
@@ -46,14 +49,14 @@ func (c *Canvas) ColorizeRows(rowHeight float64) {
 
 		// TODO: extract into separate method
 		c.Context.SetColor(image.Black)
-		c.Context.DrawString(strconv.Itoa(i+1), MarginLeft+RowIndexMargin, 40+rowHeight*float64(i+1))
+		c.Context.DrawString(strconv.Itoa(i+1), ColorRowMarginLeft+RowIndexMargin, 40+rowHeight*float64(i+1))
 	}
 
 	c.Context.SetFontFace(*c.FontFace)
 }
 
 func (c *Canvas) RenderRow(index int, row string, rowHeight float64) {
-	c.Context.DrawString(row, 45+MarginLeft, 68+rowHeight*float64(index+1))
+	c.Context.DrawString(row, PaddingLeft+MarginLeft, PaddingTop+rowHeight*float64(index+1))
 }
 
 func (c *Canvas) RenderKey(key string) {
@@ -61,7 +64,7 @@ func (c *Canvas) RenderKey(key string) {
 	c.Context.SetFontFace(*c.IndexFontFace)
 	width, _ := c.Context.MeasureString(key)
 	x := float64(Width/2) - width/2
-	c.Context.DrawString(key, x, CardKeyBottomMargin)
+	c.Context.DrawString(key, x, PassKeyBottomMargin)
 	c.Context.SetFontFace(*c.FontFace)
 }
 
