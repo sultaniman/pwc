@@ -16,9 +16,9 @@ const AESKeyLength = 32
 
 type ClassicCard struct {
 	Header  string
-	Rows    []string
-	AESKey  string
-	Context *AlphabetCollection
+	Rows             []string
+	RecoveryPassword string
+	Context          *AlphabetCollection
 }
 
 type AlphabetCollection struct {
@@ -53,7 +53,8 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 		return err
 	}
 
-	c.AESKey = hex.EncodeToString(keyBytes)[:16]
+	// Take 16 characters from hex string of 32 as password
+	c.RecoveryPassword = hex.EncodeToString(keyBytes)[:16]
 
 	for {
 		if rows >= card.AlphabetBodyHeight {
@@ -89,8 +90,8 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 }
 
 func (c *ClassicCard) Encrypt() (string, error) {
-	aesKey, _ := hex.DecodeString(c.AESKey)
-	key, salt, err := DeriveKey(aesKey, nil)
+	password, _ := hex.DecodeString(c.RecoveryPassword)
+	key, salt, err := DeriveKey(password, nil)
 	if err != nil {
 		return "", err
 	}
@@ -155,6 +156,6 @@ func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *Clas
 		canvas.RenderRow(i, row, height)
 	}
 
-	canvas.RenderKey(passwordCard.AESKey)
+	canvas.RenderKey(passwordCard.RecoveryPassword)
 	return canvas, passwordCard, nil
 }
