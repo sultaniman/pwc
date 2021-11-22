@@ -12,6 +12,23 @@ $ go build -o pwc
 ./pwc classic -h
 ```
 
+### Help
+
+```sh
+$ ./pwc classic -h
+Generate classic password card
+
+Usage:
+  cmd classic [flags]
+
+Flags:
+  -e, --encrypted string   When given will encrypt generated card and write to file (default "card.aes")
+  -h, --help               help for classic
+  -d, --include-digits     Rows 5-8 will be digits only
+  -s, --include-symbols    With regular a-zA-Z include @#$%&*<>?€+{}[]()/\
+  -o, --output string      Output file (default "card.jpg")
+```
+
 ## Misc
 ```
 Alphabets
