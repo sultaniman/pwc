@@ -1,8 +1,6 @@
 package card
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"github.com/fogleman/gg"
 	"github.com/imanhodjaev/pwc/util"
 	"golang.org/x/image/font"
@@ -19,15 +17,13 @@ const (
 	HeaderMarginLeft    = MarginLeft * 4
 	RowIndexMargin      = 5
 	FontSize            = 10
-	CardKeyBottomMargin = Height-35
-	AESKeyLength        = 16
+	CardKeyBottomMargin = Height - 35
 )
 
 type Canvas struct {
 	Context       *gg.Context
 	FontFace      *font.Face
 	IndexFontFace *font.Face
-	AESKey        string
 }
 
 func (c *Canvas) RenderHeader(headerLetters string, offset float64) {
@@ -74,19 +70,12 @@ func (c *Canvas) Save(path string) error {
 }
 
 func NewCanvas() (*Canvas, error) {
-	keyBytes := make([]byte, AESKeyLength)
-
-	_, err := rand.Read(keyBytes)
-	if err != nil {
-		return nil, err
-	}
 
 	dc := gg.NewContext(Width, Height)
 	dc.DrawRectangle(0, 0, Width, Height)
 	dc.SetColor(image.White)
 	dc.Fill()
 	card := Canvas{
-		AESKey:  hex.EncodeToString(keyBytes)[:16],
 		Context: dc,
 	}
 

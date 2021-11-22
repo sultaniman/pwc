@@ -1,17 +1,18 @@
 package cmd
 
 import (
-	"github.com/imanhodjaev/pwc/card"
+	"fmt"
 	"github.com/imanhodjaev/pwc/gen"
-	"github.com/imanhodjaev/pwc/util"
 	"github.com/spf13/cobra"
-	"image"
+	"os"
+	"syscall"
 )
 
 var (
-	outputFile  = "card.png"
-	withSymbols = false
-	digitsArea  = false
+	outputFile    = "card.png"
+	encryptedFile = "card.aes"
+	withSymbols   = false
+	digitsArea    = false
 )
 
 var classicCmd = &cobra.Command{
@@ -19,24 +20,38 @@ var classicCmd = &cobra.Command{
 	Short: "Generate classic password card",
 	Long:  "Generate classic password card",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		canvas, err := card.NewCanvas()
+		if outputFile == "" {
+			fmt.Println("Please provide output file using -o option")
+			syscall.Exit(1)
+		}
+
+		canvas, passwordCard, err := gen.GenerateClassicCard(withSymbols, digitsArea)
 		if err != nil {
 			return err
 		}
 
-		shuffledHeaderRow := util.Shuffle(card.ClassicHeaderRow)
-		_, height := canvas.Context.MeasureString(shuffledHeaderRow)
-		canvas.ColorizeRows(height)
-		canvas.RenderHeader(shuffledHeaderRow, height)
-		passwordCard := gen.NewClassicCard()
-		passwordCard.Generate(withSymbols, digitsArea)
-		canvas.Context.SetColor(image.Black)
-		canvas.Context.SetFontFace(*canvas.FontFace)
-		for i, row := range passwordCard.Rows {
-			canvas.RenderRow(i, row, height)
+		if encryptedFile != "" {
+			encrypted, err := passwordCard.Encrypt()
+			if err != nil {
+				return err
+			}
+
+			fp, err := os.Create(encryptedFile)
+			if err != nil {
+				return err
+			}
+
+			_, err = fp.WriteString(encrypted)
+			if err != nil {
+				return err
+			}
+
+			err = fp.Close()
+			if err != nil {
+				return err
+			}
 		}
 
-		canvas.RenderKey(canvas.AESKey)
 		return canvas.Save(outputFile)
 	},
 }
@@ -48,6 +63,14 @@ func init() {
 		"o",
 		"card.jpg",
 		"Output file",
+	)
+
+	classicCmd.PersistentFlags().StringVarP(
+		&encryptedFile,
+		"encrypted",
+		"e",
+		"card.aes",
+		"When given will encrypt generated card and write to file",
 	)
 
 	classicCmd.PersistentFlags().BoolVarP(
