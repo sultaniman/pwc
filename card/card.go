@@ -73,14 +73,10 @@ func (c *Canvas) Save(path string) error {
 }
 
 func NewCanvas() (*Canvas, error) {
-
 	dc := gg.NewContext(Width, Height)
 	dc.DrawRectangle(0, 0, Width, Height)
 	dc.SetColor(image.White)
 	dc.Fill()
-	card := Canvas{
-		Context: dc,
-	}
 
 	fontFace, err := util.LoadFontFace(FontSize, 400)
 	if err != nil {
@@ -92,8 +88,12 @@ func NewCanvas() (*Canvas, error) {
 		return nil, err
 	}
 
-	card.FontFace = fontFace
-	card.IndexFontFace = indexFontFace
+	card := Canvas{
+		Context:       dc,
+		FontFace:      fontFace,
+		IndexFontFace: indexFontFace,
+	}
+
 	dc.SetFontFace(*card.FontFace)
 
 	return &card, nil
