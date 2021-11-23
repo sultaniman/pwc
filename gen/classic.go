@@ -12,10 +12,15 @@ import (
 	"strings"
 )
 
-const AESKeyLength = 32
+const (
+	AESKeyLength                = 32
+	SCryptNumIterations         = 16384
+	SCryptBlockSizeFactor       = 8
+	SCryptParallelizationFactor = 1
+)
 
 type ClassicCard struct {
-	Header  string
+	Header           string
 	Rows             []string
 	RecoveryPassword string
 	Context          *AlphabetCollection
@@ -126,7 +131,15 @@ func DeriveKey(key, salt []byte) ([]byte, []byte, error) {
 		}
 	}
 
-	key, err := scrypt.Key(key, salt, 16384, 8, 1, 32)
+	key, err := scrypt.Key(
+		key,
+		salt,
+		SCryptNumIterations,
+		SCryptBlockSizeFactor,
+		SCryptParallelizationFactor,
+		32,
+	)
+
 	if err != nil {
 		return nil, nil, err
 	}
