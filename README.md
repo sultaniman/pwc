@@ -9,12 +9,6 @@ $ go build -o pwc
 ## Use
 
 ```sh
-./pwc classic -h
-```
-
-### Help
-
-```sh
 $ ./pwc classic -h
 Generate classic password card
 
