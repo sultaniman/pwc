@@ -39,9 +39,9 @@ var explainCmd = &cobra.Command{
 			if index < len(card.Colors)-1 {
 				comma = ", "
 			}
-			goc.RGB(rgb.R, rgb.G, rgb.B).Printf("#%x%x%x%s", rgb.R, rgb.G, rgb.B, comma)
+			goc.RGB(rgb.R, rgb.G, rgb.B).Printf("%s #%x%x%x%s", card.ColorNames[index], rgb.R, rgb.G, rgb.B, comma)
 		}
 
-		fmt.Printf("\n\n%30s✨ 🚀 ✨\n", " ")
+		fmt.Printf("\n\n%50s✨ 🚀 ✨\n", " ")
 	},
 }

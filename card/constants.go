@@ -75,4 +75,15 @@ var (
 		ColorMagenta,
 		ColorCyan,
 	}
+
+	ColorNames = []string{
+		"White",
+		"Gray",
+		"Red",
+		"Green",
+		"Yellow",
+		"Blue",
+		"Magenta",
+		"Cyan",
+	}
 )
