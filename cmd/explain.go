@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	goc "github.com/gookit/color"
 	"github.com/imanhodjaev/pwc/card"
 	"github.com/spf13/cobra"
 )
@@ -31,5 +32,16 @@ var explainCmd = &cobra.Command{
 		fmt.Printf("%30s %s\n", "Alphanumeric and symbols:", alphabetColor.Sprintf(card.AlphaNumericAndSymbols))
 		_, _ = headerColor.Print("\nAlgorithm")
 		fmt.Printf("\n%s", algorithmDescription)
+
+		_, _ = headerColor.Print("\nRow colors\n\n")
+		for index, rgb := range card.Colors {
+			comma := ""
+			if index < len(card.Colors)-1 {
+				comma = ", "
+			}
+			goc.RGB(rgb.R, rgb.G, rgb.B).Printf("#%x%x%x%s", rgb.R, rgb.G, rgb.B, comma)
+		}
+
+		fmt.Printf("\n\n%30s✨ 🚀 ✨\n", " ")
 	},
 }
