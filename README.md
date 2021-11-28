@@ -24,22 +24,29 @@ Flags:
   -p, --print-passphrase   Prints passphrase in the console
 ```
 
-## Misc
-```
-Alphabets
+## How it works
 
-First row: ■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�
-Alphanumeric: 0123456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ
-Alphanumeric and symbols: 0123456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ@#$%&*<>?€+{}[]()/\
-Numeric: 0123456789
+```sh
+$ ./pwc classic -h
+Alphabet
 
-Row colors:
-#ffffff White
-#c0c0c0 Gray
-#ffc0c0 Red
-#c0ffc0 Green
-#ffffc0 Yellow
-#c0c0ff Blue
-#ffc0ff Magenta
-#c0ffff Cyan
+               Header symbols: ■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�
+                      Numbers: 0123456789
+                 Alphanumeric: 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+     Alphanumeric and symbols: 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%!&(MISSING)*<>?€+{}[]()/\
+
+Algorithm
+
+1. Render the first row with shuffled "■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�",
+2. Iterate over the rest of the rows
+    a. If the card should include symbols then
+       use the alphanumeric and symbols alphabet for every even character
+       and use the alphanumeric alphabet for the odd columns,
+    b. If the card should have a digits area then
+       use the numeric alphabet for the lower half of the rows 5-8.
+
+Row colors
+
+White #ffffff, Gray #c0c0c0, Red #ffc0c0, Green #c0ffc0, Yellow #ffffc0, Blue #c0c0ff, Magenta #ffc0ff, Cyan #c0ffff
+                                                  ✨ 🚀 ✨
 ```
