@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+// TODO(thanks): Encryption was adopted from https://gist.github.com/enyachoke/5c60f5eebed693d9b4bacddcad693b47
+
 const (
 	NumIterations    = 10000
 	SaltLengthBytes  = 8
