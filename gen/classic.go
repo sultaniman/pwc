@@ -127,7 +127,7 @@ func RestoreClassicCard(passphrase string, encryptedCard string) (*card.Canvas, 
 	passwordCard.Message.Plaintext = decryptedCard
 	parts := strings.Split(decryptedCard, "\n")
 	passwordCard.Header = parts[0]
-	passwordCard.Rows = parts[1:len(parts)-1]
+	passwordCard.Rows = parts[1 : len(parts)-1]
 
 	canvas, err := card.NewCanvas()
 	if err != nil {

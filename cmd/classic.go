@@ -9,10 +9,11 @@ import (
 )
 
 var (
-	outputFile    = "card.png"
-	encryptedFile = "card.aes"
-	withSymbols   = false
-	digitsArea    = false
+	outputFile      = "card.png"
+	encryptedFile   = "card.aes"
+	printPassphrase = false
+	withSymbols     = false
+	digitsArea      = false
 )
 
 var classicCmd = &cobra.Command{
@@ -52,6 +53,10 @@ var classicCmd = &cobra.Command{
 			}
 		}
 
+		if printPassphrase {
+			fmt.Printf("Passphrase: %s\n", passwordCard.Passphrase)
+		}
+
 		return canvas.Save(outputFile)
 	},
 }
@@ -62,7 +67,7 @@ func init() {
 		"output",
 		"o",
 		"card.jpg",
-		"Output file",
+		"Output file (supported formats PNG, JPG)",
 	)
 
 	classicCmd.PersistentFlags().StringVarP(
@@ -79,6 +84,14 @@ func init() {
 		"s",
 		false,
 		"With regular a-zA-Z include @#$%&*<>?€+{}[]()/\\",
+	)
+
+	classicCmd.PersistentFlags().BoolVarP(
+		&printPassphrase,
+		"print-passphrase",
+		"p",
+		false,
+		"Prints passphrase in the console",
 	)
 
 	classicCmd.PersistentFlags().BoolVarP(
