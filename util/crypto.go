@@ -50,6 +50,11 @@ func (m *Message) Encrypt(passphrase string) (string, error) {
 	key, salt, err := m.DeriveKey(passphrase, nil)
 	iv := make([]byte, IVKeyLength)
 
+	_, err = rand.Read(iv)
+	if err != nil {
+		return "", err
+	}
+
 	cipherBlock, err := aes.NewCipher(key)
 	if err != nil {
 		return "", err
