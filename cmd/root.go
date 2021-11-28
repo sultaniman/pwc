@@ -23,4 +23,5 @@ func init() {
 	rootCmd.AddCommand(classicCmd)
 	rootCmd.AddCommand(explainCmd)
 	rootCmd.AddCommand(imageCmd)
+	rootCmd.AddCommand(restoreCmd)
 }
