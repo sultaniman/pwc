@@ -1,22 +1,10 @@
 package gen
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/hex"
 	"github.com/imanhodjaev/pwc/card"
 	"github.com/imanhodjaev/pwc/util"
-	"golang.org/x/crypto/scrypt"
 	"image"
 	"strings"
-)
-
-const (
-	AESKeyLength                = 32
-	SCryptNumIterations         = 16384
-	SCryptBlockSizeFactor       = 8
-	SCryptParallelizationFactor = 1
 )
 
 type ClassicCard struct {
@@ -24,6 +12,7 @@ type ClassicCard struct {
 	Rows       []string
 	Passphrase string
 	Context    *AlphabetCollection
+	Message    *util.Message
 }
 
 type AlphabetCollection struct {
@@ -39,6 +28,7 @@ func NewClassicCard() *ClassicCard {
 			AlphaNumeric:           NewAlphabet(card.AlphaNumeric),
 			AlphaNumericAndSymbols: NewAlphabet(card.AlphaNumericAndSymbols),
 		},
+		Message: util.NewMessage(),
 	}
 }
 
@@ -52,7 +42,7 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 	rows := 0
 	c.Header = util.Shuffle(card.ClassicHeaderRow)
 
-	passphrase, err := c.RandomPassphrase()
+	passphrase, err := c.Message.RandomPassphrase()
 	if err != nil {
 		return err
 	}
@@ -92,71 +82,9 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 	return nil
 }
 
-func (c *ClassicCard) Encrypt() (string, error) {
-	passphrase, _ := hex.DecodeString(c.Passphrase)
-	key, salt, err := DeriveKey(passphrase, nil)
-	if err != nil {
-		return "", err
-	}
-
-	cipherBlock, err := aes.NewCipher(key)
-	if err != nil {
-		return "", err
-	}
-
-	aesGCM, err := cipher.NewGCM(cipherBlock)
-	if err != nil {
-		return "", err
-	}
-
-	nonce := make([]byte, aesGCM.NonceSize())
-	encrypted := aesGCM.Seal(nonce, nonce, c.GetBytes(), nil)
-	encrypted = append(encrypted, salt...)
-	return hex.EncodeToString(encrypted), nil
-}
-
-// RandomPassphrase godoc
-// Generate random passphrase to encrypt generated data
-// Returns first 16 characters from random passphrase.
-func (c *ClassicCard) RandomPassphrase() (string, error) {
-	passphraseBytes := make([]byte, AESKeyLength)
-	_, err := rand.Read(passphraseBytes)
-	if err != nil {
-		return "", err
-	}
-
-	return hex.EncodeToString(passphraseBytes)[:16], err
-}
-
 func (c *ClassicCard) GetBytes() []byte {
 	rows := append([]string{c.Header}, c.Rows...)
-	rows = append(rows, card.Tag)
 	return []byte(strings.Join(rows, "\n"))
-}
-
-// DeriveKey TODO: parameterize scrypt cost params
-func DeriveKey(passphrase, salt []byte) ([]byte, []byte, error) {
-	if salt == nil {
-		salt = make([]byte, 32)
-		if _, err := rand.Read(salt); err != nil {
-			return nil, nil, err
-		}
-	}
-
-	key, err := scrypt.Key(
-		passphrase,
-		salt,
-		SCryptNumIterations,
-		SCryptBlockSizeFactor,
-		SCryptParallelizationFactor,
-		32,
-	)
-
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return key, salt, nil
 }
 
 func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *ClassicCard, error) {
@@ -171,10 +99,11 @@ func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *Clas
 		return nil, nil, err
 	}
 
+	passwordCard.Message.Plaintext = string(passwordCard.GetBytes())
+
 	_, height := canvas.Context.MeasureString(passwordCard.Header)
 	canvas.ColorizeRows(height)
 	canvas.RenderHeader(passwordCard.Header, height)
-
 	canvas.Context.SetColor(image.Black)
 	canvas.Context.SetFontFace(*canvas.FontFace)
 	for i, row := range passwordCard.Rows {
@@ -182,5 +111,44 @@ func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *Clas
 	}
 
 	canvas.RenderKey(passwordCard.Passphrase)
+	return canvas, passwordCard, nil
+}
+
+func RestoreClassicCard(passphrase string, encryptedCard string) (*card.Canvas, *ClassicCard, error) {
+	passwordCard := NewClassicCard()
+	passwordCard.Passphrase = passphrase
+	passwordCard.Message.Encrypted = encryptedCard
+
+	decryptedCard, err := passwordCard.Message.Decrypt(passphrase)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	passwordCard.Message.Plaintext = decryptedCard
+	parts := strings.Split(decryptedCard, "\n")
+	passwordCard.Header = parts[0]
+	passwordCard.Rows = parts[1:len(parts)-1]
+
+	canvas, err := card.NewCanvas()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	_, height := canvas.Context.MeasureString(passwordCard.Header)
+	canvas.ColorizeRows(height)
+	canvas.RenderHeader(passwordCard.Header, height)
+	canvas.Context.SetColor(image.Black)
+	canvas.Context.SetFontFace(*canvas.FontFace)
+	for i, row := range passwordCard.Rows {
+		canvas.RenderRow(i, row, height)
+	}
+
+	randomPassphrase, err := passwordCard.Message.RandomPassphrase()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	passwordCard.Passphrase = randomPassphrase
+	canvas.RenderKey(randomPassphrase)
 	return canvas, passwordCard, nil
 }
