@@ -80,7 +80,7 @@ func init() {
 		"output",
 		"o",
 		"card.jpg",
-		"Output file",
+		"Output file (supported formats PNG, JPG)",
 	)
 
 	restoreCmd.PersistentFlags().StringVarP(
@@ -99,4 +99,3 @@ func init() {
 		"Path to encrypted backup file",
 	)
 }
-
