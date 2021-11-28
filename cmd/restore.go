@@ -68,6 +68,10 @@ var restoreCmd = &cobra.Command{
 			}
 		}
 
+		if printPassphrase {
+			fmt.Printf("Passphrase: %s\n", passwordCard.Passphrase)
+		}
+
 		return canvas.Save(outputFile)
 
 		return nil
@@ -81,6 +85,14 @@ func init() {
 		"o",
 		"card.jpg",
 		"Output file (supported formats PNG, JPG)",
+	)
+
+	restoreCmd.PersistentFlags().BoolVarP(
+		&printPassphrase,
+		"print-passphrase",
+		"x",
+		false,
+		"Prints passphrase in the console",
 	)
 
 	restoreCmd.PersistentFlags().StringVarP(

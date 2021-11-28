@@ -79,19 +79,19 @@ func init() {
 	)
 
 	classicCmd.PersistentFlags().BoolVarP(
+		&printPassphrase,
+		"print-passphrase",
+		"x",
+		false,
+		"Prints passphrase in the console",
+	)
+
+	classicCmd.PersistentFlags().BoolVarP(
 		&withSymbols,
 		"include-symbols",
 		"s",
 		false,
 		"With regular a-zA-Z include @#$%&*<>?€+{}[]()/\\",
-	)
-
-	classicCmd.PersistentFlags().BoolVarP(
-		&printPassphrase,
-		"print-passphrase",
-		"p",
-		false,
-		"Prints passphrase in the console",
 	)
 
 	classicCmd.PersistentFlags().BoolVarP(
