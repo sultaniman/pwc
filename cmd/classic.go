@@ -31,7 +31,7 @@ var classicCmd = &cobra.Command{
 		}
 
 		if encryptedFile != "" {
-			encrypted, err := passwordCard.Encrypt()
+			encrypted, err := passwordCard.Message.Encrypt(passwordCard.Passphrase)
 			if err != nil {
 				return err
 			}
