@@ -3,7 +3,7 @@ module github.com/imanhodjaev/pwc
 go 1.17
 
 require (
-	github.com/fogleman/gg v1.3.0
+	github.com/fogleman/gg v1.3.1-0.20210928143535-8febc0f526ad
 	github.com/go-fonts/dejavu v0.1.0
 	github.com/spf13/cobra v1.2.1
 	github.com/stretchr/testify v1.7.0
