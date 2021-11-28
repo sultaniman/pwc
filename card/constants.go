@@ -5,7 +5,6 @@ import (
 )
 
 const (
-	Tag                    = "password-card"
 	AlphabetWidth          = 29
 	AlphabetBodyHeight     = 8
 	ClassicHeaderRow       = "■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�"
