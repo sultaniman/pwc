@@ -20,10 +20,10 @@ const (
 )
 
 type ClassicCard struct {
-	Header           string
-	Rows             []string
-	RecoveryPassword string
-	Context          *AlphabetCollection
+	Header     string
+	Rows       []string
+	Passphrase string
+	Context    *AlphabetCollection
 }
 
 type AlphabetCollection struct {
@@ -52,14 +52,12 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 	rows := 0
 	c.Header = util.Shuffle(card.ClassicHeaderRow)
 
-	keyBytes := make([]byte, AESKeyLength)
-	_, err := rand.Read(keyBytes)
+	passphrase, err := c.RandomPassphrase()
 	if err != nil {
 		return err
 	}
 
-	// Take 16 characters from hex string of 32 as password
-	c.RecoveryPassword = hex.EncodeToString(keyBytes)[:16]
+	c.Passphrase = passphrase
 
 	for {
 		if rows >= card.AlphabetBodyHeight {
@@ -95,8 +93,8 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 }
 
 func (c *ClassicCard) Encrypt() (string, error) {
-	password, _ := hex.DecodeString(c.RecoveryPassword)
-	key, salt, err := DeriveKey(password, nil)
+	passphrase, _ := hex.DecodeString(c.Passphrase)
+	key, salt, err := DeriveKey(passphrase, nil)
 	if err != nil {
 		return "", err
 	}
@@ -117,13 +115,27 @@ func (c *ClassicCard) Encrypt() (string, error) {
 	return hex.EncodeToString(encrypted), nil
 }
 
+// RandomPassphrase godoc
+// Generate random passphrase to encrypt generated data
+// Returns first 16 characters from random passphrase.
+func (c *ClassicCard) RandomPassphrase() (string, error) {
+	passphraseBytes := make([]byte, AESKeyLength)
+	_, err := rand.Read(passphraseBytes)
+	if err != nil {
+		return "", err
+	}
+
+	return hex.EncodeToString(passphraseBytes)[:16], err
+}
+
 func (c *ClassicCard) GetBytes() []byte {
 	rows := append([]string{c.Header}, c.Rows...)
+	rows = append(rows, card.Tag)
 	return []byte(strings.Join(rows, "\n"))
 }
 
 // DeriveKey TODO: parameterize scrypt cost params
-func DeriveKey(key, salt []byte) ([]byte, []byte, error) {
+func DeriveKey(passphrase, salt []byte) ([]byte, []byte, error) {
 	if salt == nil {
 		salt = make([]byte, 32)
 		if _, err := rand.Read(salt); err != nil {
@@ -132,7 +144,7 @@ func DeriveKey(key, salt []byte) ([]byte, []byte, error) {
 	}
 
 	key, err := scrypt.Key(
-		key,
+		passphrase,
 		salt,
 		SCryptNumIterations,
 		SCryptBlockSizeFactor,
@@ -169,6 +181,6 @@ func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *Clas
 		canvas.RenderRow(i, row, height)
 	}
 
-	canvas.RenderKey(passwordCard.RecoveryPassword)
+	canvas.RenderKey(passwordCard.Passphrase)
 	return canvas, passwordCard, nil
 }
