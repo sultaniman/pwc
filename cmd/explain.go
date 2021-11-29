@@ -26,10 +26,10 @@ var explainCmd = &cobra.Command{
 		headerColor := color.New(color.FgGreen, color.Bold).Add(color.Underline)
 		alphabetColor := color.New(color.FgYellow, color.Bold)
 		_, _ = headerColor.Print("Alphabet\n\n")
-		fmt.Printf("%30s %s\n", "Header symbols:", alphabetColor.Sprintf(card.ClassicHeaderRow))
+		fmt.Printf("%30s %s\n", "Header symbols:", alphabetColor.Sprint(card.ClassicHeaderRow))
 		fmt.Printf("%30s %s\n", "Numbers:", alphabetColor.Sprintf(card.Numbers))
-		fmt.Printf("%30s %s\n", "Alphanumeric:", alphabetColor.Sprintf(card.AlphaNumeric))
-		fmt.Printf("%30s %s\n", "Alphanumeric and symbols:", alphabetColor.Sprintf(card.AlphaNumericAndSymbols))
+		fmt.Printf("%30s %s\n", "Alphanumeric:", alphabetColor.Sprint(card.AlphaNumeric))
+		fmt.Printf("%30s %s\n", "Alphanumeric and symbols:", alphabetColor.Sprint(card.AlphaNumericAndSymbols))
 		_, _ = headerColor.Print("\nAlgorithm")
 		fmt.Printf("\n%s", algorithmDescription)
 
