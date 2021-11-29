@@ -1,4 +1,5 @@
 # PWC
+![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg)
 
 ## Build
 
