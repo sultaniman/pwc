@@ -1,17 +1,19 @@
 package gen
 
 import (
-	"github.com/imanhodjaev/pwc/card"
+	"github.com/imanhodjaev/pwc/canvas"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestClassicCard_Generate(t *testing.T) {
 	classicCard := NewClassicCard()
-	classicCard.Generate(false, true)
+	err := classicCard.Generate(false, true)
 
-	assert.Equal(t, 8, len(classicCard.Rows))
-	for _, row := range classicCard.Rows {
-		assert.Equal(t, card.AlphabetWidth, len(row))
+	if assert.NoError(t, err) {
+		assert.Equal(t, 8, len(classicCard.Rows))
+		for _, row := range classicCard.Rows {
+			assert.Equal(t, canvas.AlphabetWidth, len(row))
+		}
 	}
 }

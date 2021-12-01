@@ -1,4 +1,4 @@
-package card
+package canvas
 
 import (
 	"image/color"

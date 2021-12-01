@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"github.com/imanhodjaev/pwc/card"
+	"github.com/imanhodjaev/pwc/canvas"
 	"github.com/imanhodjaev/pwc/util"
 	"image"
 	"strings"
@@ -24,9 +24,9 @@ type AlphabetCollection struct {
 func NewClassicCard() *ClassicCard {
 	return &ClassicCard{
 		Context: &AlphabetCollection{
-			Numeric:                NewAlphabet(card.Numbers),
-			AlphaNumeric:           NewAlphabet(card.AlphaNumeric),
-			AlphaNumericAndSymbols: NewAlphabet(card.AlphaNumericAndSymbols),
+			Numeric:                NewAlphabet(canvas.Numbers),
+			AlphaNumeric:           NewAlphabet(canvas.AlphaNumeric),
+			AlphaNumericAndSymbols: NewAlphabet(canvas.AlphaNumericAndSymbols),
 		},
 		Message: util.NewMessage(),
 	}
@@ -40,7 +40,7 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 	chars := ""
 	count := 0
 	rows := 0
-	c.Header = util.Shuffle(card.ClassicHeaderRow)
+	c.Header = util.Shuffle(canvas.ClassicHeaderRow)
 
 	passphrase, err := c.Message.RandomPassphrase()
 	if err != nil {
@@ -50,11 +50,11 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 	c.Passphrase = passphrase
 
 	for {
-		if rows >= card.AlphabetBodyHeight {
+		if rows >= canvas.AlphabetBodyHeight {
 			break
 		}
 
-		if count >= card.AlphabetWidth {
+		if count >= canvas.AlphabetWidth {
 			c.Rows = append(c.Rows, chars)
 			count = 0
 			chars = ""
@@ -72,7 +72,7 @@ func (c *ClassicCard) Generate(alnumAndSymbols bool, digitsOnlyArea bool) error 
 			nextChar = c.Context.AlphaNumericAndSymbols.Next()
 		}
 
-		if digitsOnlyArea && rows > (card.AlphabetBodyHeight/2)-1 {
+		if digitsOnlyArea && rows > (canvas.AlphabetBodyHeight/2)-1 {
 			nextChar = c.Context.Numeric.Next()
 		}
 
@@ -87,8 +87,8 @@ func (c *ClassicCard) GetBytes() []byte {
 	return []byte(strings.Join(rows, "\n"))
 }
 
-func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *ClassicCard, error) {
-	canvas, err := card.NewCanvas()
+func GenerateClassicCard(withSymbols bool, digitsArea bool) (*canvas.Canvas, *ClassicCard, error) {
+	cardCanvas, err := canvas.NewCanvas()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -101,20 +101,20 @@ func GenerateClassicCard(withSymbols bool, digitsArea bool) (*card.Canvas, *Clas
 
 	passwordCard.Message.Plaintext = string(passwordCard.GetBytes())
 
-	_, height := canvas.Context.MeasureString(passwordCard.Header)
-	canvas.ColorizeRows(height)
-	canvas.RenderHeader(passwordCard.Header, height)
-	canvas.Context.SetColor(image.Black)
-	canvas.Context.SetFontFace(*canvas.FontFace)
+	_, height := cardCanvas.Context.MeasureString(passwordCard.Header)
+	cardCanvas.ColorizeRows(height)
+	cardCanvas.RenderHeader(passwordCard.Header, height)
+	cardCanvas.Context.SetColor(image.Black)
+	cardCanvas.Context.SetFontFace(*cardCanvas.FontFace)
 	for i, row := range passwordCard.Rows {
-		canvas.RenderRow(i, row, height)
+		cardCanvas.RenderRow(i, row, height)
 	}
 
-	canvas.RenderKey(passwordCard.Passphrase)
-	return canvas, passwordCard, nil
+	cardCanvas.RenderKey(passwordCard.Passphrase)
+	return cardCanvas, passwordCard, nil
 }
 
-func RestoreClassicCard(passphrase string, encryptedCard string) (*card.Canvas, *ClassicCard, error) {
+func RestoreClassicCard(passphrase string, encryptedCard string) (*canvas.Canvas, *ClassicCard, error) {
 	passwordCard := NewClassicCard()
 	passwordCard.Passphrase = passphrase
 	passwordCard.Message.Encrypted = encryptedCard
@@ -129,18 +129,18 @@ func RestoreClassicCard(passphrase string, encryptedCard string) (*card.Canvas, 
 	passwordCard.Header = parts[0]
 	passwordCard.Rows = parts[1:]
 
-	canvas, err := card.NewCanvas()
+	canva, err := canvas.NewCanvas()
 	if err != nil {
 		return nil, nil, err
 	}
 
-	_, height := canvas.Context.MeasureString(passwordCard.Header)
-	canvas.ColorizeRows(height)
-	canvas.RenderHeader(passwordCard.Header, height)
-	canvas.Context.SetColor(image.Black)
-	canvas.Context.SetFontFace(*canvas.FontFace)
+	_, height := canva.Context.MeasureString(passwordCard.Header)
+	canva.ColorizeRows(height)
+	canva.RenderHeader(passwordCard.Header, height)
+	canva.Context.SetColor(image.Black)
+	canva.Context.SetFontFace(*canva.FontFace)
 	for i, row := range passwordCard.Rows {
-		canvas.RenderRow(i, row, height)
+		canva.RenderRow(i, row, height)
 	}
 
 	randomPassphrase, err := passwordCard.Message.RandomPassphrase()
@@ -149,6 +149,6 @@ func RestoreClassicCard(passphrase string, encryptedCard string) (*card.Canvas, 
 	}
 
 	passwordCard.Passphrase = randomPassphrase
-	canvas.RenderKey(randomPassphrase)
-	return canvas, passwordCard, nil
+	canva.RenderKey(randomPassphrase)
+	return canva, passwordCard, nil
 }

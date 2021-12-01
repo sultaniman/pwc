@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	goc "github.com/gookit/color"
-	"github.com/imanhodjaev/pwc/card"
+	"github.com/imanhodjaev/pwc/canvas"
 	"github.com/spf13/cobra"
 )
 
@@ -26,20 +26,20 @@ var explainCmd = &cobra.Command{
 		headerColor := color.New(color.FgGreen, color.Bold).Add(color.Underline)
 		alphabetColor := color.New(color.FgYellow, color.Bold)
 		_, _ = headerColor.Print("Alphabet\n\n")
-		fmt.Printf("%30s %s\n", "Header symbols:", alphabetColor.Sprint(card.ClassicHeaderRow))
-		fmt.Printf("%30s %s\n", "Numbers:", alphabetColor.Sprintf(card.Numbers))
-		fmt.Printf("%30s %s\n", "Alphanumeric:", alphabetColor.Sprint(card.AlphaNumeric))
-		fmt.Printf("%30s %s\n", "Alphanumeric and symbols:", alphabetColor.Sprint(card.AlphaNumericAndSymbols))
+		fmt.Printf("%30s %s\n", "Header symbols:", alphabetColor.Sprint(canvas.ClassicHeaderRow))
+		fmt.Printf("%30s %s\n", "Numbers:", alphabetColor.Sprintf(canvas.Numbers))
+		fmt.Printf("%30s %s\n", "Alphanumeric:", alphabetColor.Sprint(canvas.AlphaNumeric))
+		fmt.Printf("%30s %s\n", "Alphanumeric and symbols:", alphabetColor.Sprint(canvas.AlphaNumericAndSymbols))
 		_, _ = headerColor.Print("\nAlgorithm")
 		fmt.Printf("\n%s", algorithmDescription)
 
 		_, _ = headerColor.Print("\nRow colors\n\n")
-		for index, rgb := range card.Colors {
+		for index, rgb := range canvas.Colors {
 			comma := ""
-			if index < len(card.Colors)-1 {
+			if index < len(canvas.Colors)-1 {
 				comma = ", "
 			}
-			goc.RGB(rgb.R, rgb.G, rgb.B).Printf("%s #%x%x%x%s", card.ColorNames[index], rgb.R, rgb.G, rgb.B, comma)
+			goc.RGB(rgb.R, rgb.G, rgb.B).Printf("%s #%x%x%x%s", canvas.ColorNames[index], rgb.R, rgb.G, rgb.B, comma)
 		}
 
 		fmt.Printf("\n\n%50s✨ 🚀 ✨\n", " ")
