@@ -115,3 +115,14 @@ func NewCanvas() (*Canvas, error) {
 
 	return &card, nil
 }
+
+func NewEmptyCanvas() *Canvas {
+	dc := gg.NewContext(Width, Height)
+	dc.DrawRectangle(0, 0, Width, Height)
+	dc.SetColor(image.White)
+	dc.Fill()
+
+	return &Canvas{
+		Context: dc,
+	}
+}
