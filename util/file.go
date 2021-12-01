@@ -3,6 +3,7 @@ package util
 import (
 	"errors"
 	"os"
+	"strings"
 )
 
 func FileExists(filepath string) bool {
@@ -11,4 +12,13 @@ func FileExists(filepath string) bool {
 	}
 
 	return true
+}
+
+func AllowedFormats(format string) bool {
+	switch strings.ToLower(format) {
+	case ".jpg", "jpeg", "png":
+		return true
+	default:
+		return false
+	}
 }
