@@ -5,9 +5,13 @@ import (
 	"github.com/imanhodjaev/pwc/util"
 	"image"
 	"math/rand"
-	"os"
-	"path/filepath"
 	"time"
+)
+
+const (
+	Padding          = 10
+	DefaultNumRows   = 3
+	DefaultRowHeight = (canvas.Height - Padding) / DefaultNumRows
 )
 
 type Tile struct {
@@ -18,6 +22,7 @@ type Tile struct {
 type ImageCard struct {
 	ImagePaths []string
 	Tiles      []*Tile
+	RowHeight  int
 }
 
 func (ic *ImageCard) Shuffle() {
@@ -29,16 +34,10 @@ func (ic *ImageCard) Shuffle() {
 
 func GenerateImageCard(collectionPath string) (*canvas.Canvas, *ImageCard, error) {
 	imageCanvas := canvas.NewEmptyCanvas()
-	ic := &ImageCard{}
-	err := filepath.Walk(collectionPath, func(currentPath string, info os.FileInfo, err error) error {
-		if mode := info.Mode(); mode.IsRegular() {
-			if util.AllowedFormats(filepath.Ext(currentPath)) {
-				ic.ImagePaths = append(ic.ImagePaths, currentPath)
-			}
-		}
-
-		return err
-	})
+	paths, err := util.WalkAndReadDirectory(collectionPath)
+	ic := &ImageCard{
+		ImagePaths: paths,
+	}
 
 	if err != nil {
 		return nil, nil, err
