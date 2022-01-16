@@ -120,4 +120,4 @@ White #ffffff, Gray #c0c0c0, Red #ffc0c0, Green #c0ffc0, Yellow #ffffc0, Blue #c
 
 P.S. it was inspired by https://www.passwordcard.org/en.
 
-<p style="text-align:center">✨ 🚀 ✨</p>
+<p align="center">✨ 🚀 ✨</p>
