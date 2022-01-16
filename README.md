@@ -5,13 +5,19 @@ If you need to remember dozens of passwords without having to remember all of th
 then with password cards you can have it.
 Each password card is a set of grids with random letters and digits on it has 8 rows
 which have different colors, columns mapped to different symbols.
-Everything required from you is to remember a combination of a symbol and a color or an index of row,
+Everything needed is to remember a combination of a symbol and a color or an index of row,
 then compose the letters and digits of your passwords from there.
 
 ## Build
 
 ```sh
 $ go build -o pwc
+```
+
+## Installation
+
+```sh
+$ go get -u github.com/imanhodjaev/pwc
 ```
 
 ## CLI Use
@@ -30,12 +36,6 @@ Flags:
   -s, --include-symbols    With regular a-zA-Z include @#$%&*<>?€+{}[]()/\
   -o, --output string      Output file (default "card.jpg")
   -p, --print-passphrase   Prints passphrase in the console
-```
-
-## Installation
-
-```sh
-$ go get -u github.com/imanhodjaev/pwc
 ```
 
 ## Example card
