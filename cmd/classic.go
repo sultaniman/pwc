@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/imanhodjaev/pwc/gen"
+	"github.com/imanhodjaev/pwc/util"
 	"github.com/spf13/cobra"
 	"os"
 	"syscall"
@@ -57,7 +58,7 @@ var classicCmd = &cobra.Command{
 			fmt.Printf("Passphrase: %s\n", passwordCard.Passphrase)
 		}
 
-		return canvas.Save(outputFile)
+		return util.SaveImage(canvas.Context, outputFile)
 	},
 }
 

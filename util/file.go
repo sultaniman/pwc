@@ -2,6 +2,8 @@ package util
 
 import (
 	"errors"
+	"github.com/fogleman/gg"
+	"image"
 	"os"
 	"path/filepath"
 	"strings"
@@ -24,6 +26,7 @@ func AllowedFormats(format string) bool {
 	}
 }
 
+// TODO: will be used for random image cards
 func WalkAndReadDirectory(path string) ([]string, error) {
 	var images []string
 	err := filepath.Walk(path, func(currentPath string, info os.FileInfo, err error) error {
@@ -41,4 +44,16 @@ func WalkAndReadDirectory(path string) ([]string, error) {
 	}
 
 	return images, nil
+}
+
+func LoadImage(filename string) (image.Image, error) {
+	ext := filepath.Ext(filename)
+	switch strings.ToLower(ext) {
+	case ".jpg", "jpeg":
+		return gg.LoadJPG(filename)
+	case ".png":
+		return gg.LoadPNG(filename)
+	default:
+		return nil, errors.New("unsupported image format")
+	}
 }

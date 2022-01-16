@@ -72,7 +72,7 @@ var restoreCmd = &cobra.Command{
 			fmt.Printf("Passphrase: %s\n", passwordCard.Passphrase)
 		}
 
-		return canvas.Save(outputFile)
+		return util.SaveImage(canvas.Context, outputFile)
 
 		return nil
 	},

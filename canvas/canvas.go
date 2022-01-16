@@ -6,7 +6,6 @@ import (
 	"golang.org/x/image/font"
 	"image"
 	"strconv"
-	"strings"
 )
 
 const (
@@ -22,7 +21,6 @@ const (
 	RowIndexMargin      = 5
 	FontSize            = 10
 	PassKeyBottomMargin = Height - 35
-	DefaultQuality      = 80
 )
 
 type Canvas struct {
@@ -70,25 +68,6 @@ func (c *Canvas) RenderKey(key string) {
 	c.Context.SetFontFace(*c.FontFace)
 }
 
-func (c *Canvas) Save(path string) error {
-	parts := strings.Split(path, ".")
-	ext := strings.ToLower(parts[len(parts)-1])
-	if ext == "" {
-		ext = "png"
-		path += "." + ext
-	}
-
-	if ext == "png" {
-		return c.Context.SavePNG(path)
-	}
-
-	if ext == "jpg" || ext == "jpeg" {
-		return c.Context.SaveJPG(path, DefaultQuality)
-	}
-
-	return nil
-}
-
 func NewCanvas() (*Canvas, error) {
 	dc := gg.NewContext(Width, Height)
 	dc.DrawRectangle(0, 0, Width, Height)
@@ -114,15 +93,4 @@ func NewCanvas() (*Canvas, error) {
 	dc.SetFontFace(*card.FontFace)
 
 	return &card, nil
-}
-
-func NewEmptyCanvas() *Canvas {
-	dc := gg.NewContext(Width, Height)
-	dc.DrawRectangle(0, 0, Width, Height)
-	dc.SetColor(image.White)
-	dc.Fill()
-
-	return &Canvas{
-		Context: dc,
-	}
 }
