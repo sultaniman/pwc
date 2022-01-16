@@ -1,6 +1,13 @@
 # PWC
 ![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg)
 
+If you need to remember dozens of passwords without having to remember all of them
+then with password cards you can have it.
+Each password card is a set of grids with random letters and digits on it has 8 rows
+which have different colors, columns mapped to different symbols.
+Everything required from you is to remember a combination of a symbol and a color or an index of row,
+then compose the letters and digits of your passwords from there.
+
 ## Build
 
 ```sh
