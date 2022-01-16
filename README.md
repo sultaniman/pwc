@@ -25,6 +25,10 @@ Flags:
   -p, --print-passphrase   Prints passphrase in the console
 ```
 
+## Example card
+
+![Password card](https://raw.githubusercontent.com/imanhodjaev/pwc/main/example/password-card.jpg)
+
 ## How it works
 
 ```sh
@@ -39,7 +43,7 @@ Alphabet
 Algorithm
 
 1. Render the first row with shuffled "■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�",
-2. Iterate over the rest of the rows
+2. Iterate over the rest of the rows and for each randomly selected letter we shuffle the entire alphabet
     a. If the card should include symbols then
        use the alphanumeric and symbols alphabet for every even character
        and use the alphanumeric alphabet for the odd columns,
