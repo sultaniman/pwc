@@ -27,7 +27,9 @@ Flags:
 
 ## Example card
 
-![Password card](https://raw.githubusercontent.com/imanhodjaev/pwc/main/example/password-card.jpg)
+<p>
+<img src="https://raw.githubusercontent.com/imanhodjaev/pwc/main/example/password-card.jpg" width="400"/>
+</p>
 
 ## How it works
 
