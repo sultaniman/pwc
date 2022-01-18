@@ -1,4 +1,4 @@
-package util
+package crypto
 
 import (
 	"crypto/aes"
@@ -31,8 +31,11 @@ type Message struct {
 	Plaintext string
 }
 
-func NewMessage() *Message {
-	return &Message{}
+func NewMessage(plaintext string, encrypted string) *Message {
+	return &Message{
+		Encrypted: encrypted,
+		Plaintext: plaintext,
+	}
 }
 
 func (m *Message) DeriveKey(passphrase string, salt []byte) ([]byte, []byte, error) {

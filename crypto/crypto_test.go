@@ -1,4 +1,4 @@
-package util
+package crypto
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -6,9 +6,8 @@ import (
 )
 
 func TestMessageEncryptDecrypt(t *testing.T) {
-	message := NewMessage()
 	const msg = "hey-ho-ho-ho"
-	message.Plaintext = msg
+	message := NewMessage(msg, "")
 	encryptedMessage, err := message.Encrypt("secret")
 	if assert.NoError(t, err) {
 		assert.NotEqual(t, message.Plaintext, encryptedMessage)

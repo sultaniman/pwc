@@ -2,6 +2,7 @@ package gen
 
 import (
 	"github.com/imanhodjaev/pwc/canvas"
+	"github.com/imanhodjaev/pwc/crypto"
 	"github.com/imanhodjaev/pwc/util"
 	"image"
 	"strings"
@@ -12,7 +13,7 @@ type ClassicCard struct {
 	Rows       []string
 	Passphrase string
 	Context    *AlphabetCollection
-	Message    *util.Message
+	Message    *crypto.Message
 }
 
 type AlphabetCollection struct {
@@ -28,7 +29,7 @@ func NewClassicCard() *ClassicCard {
 			AlphaNumeric:           NewAlphabet(canvas.AlphaNumeric),
 			AlphaNumericAndSymbols: NewAlphabet(canvas.AlphaNumericAndSymbols),
 		},
-		Message: util.NewMessage(),
+		Message: crypto.NewMessage("", ""),
 	}
 }
 
