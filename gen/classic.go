@@ -87,30 +87,33 @@ func (c *ClassicCard) GetBytes() []byte {
 	return []byte(strings.Join(rows, "\n"))
 }
 
-func GenerateClassicCard(withSymbols bool, digitsArea bool) (*canvas.Canvas, *ClassicCard, error) {
-	cardCanvas, err := canvas.NewCanvas()
-	if err != nil {
-		return nil, nil, err
-	}
-
+func GenerateClassicCard(withSymbols bool, digitsArea bool, renderImage bool) (*canvas.Canvas, *ClassicCard, error) {
+	var cardCanvas *canvas.Canvas
 	passwordCard := NewClassicCard()
-	err = passwordCard.Generate(withSymbols, digitsArea)
+	err := passwordCard.Generate(withSymbols, digitsArea)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	passwordCard.Message.Plaintext = string(passwordCard.GetBytes())
 
-	_, height := cardCanvas.Context.MeasureString(passwordCard.Header)
-	cardCanvas.ColorizeRows(height)
-	cardCanvas.RenderHeader(passwordCard.Header, height)
-	cardCanvas.Context.SetColor(image.Black)
-	cardCanvas.Context.SetFontFace(*cardCanvas.FontFace)
-	for i, row := range passwordCard.Rows {
-		cardCanvas.RenderRow(i, row, height)
-	}
+	if renderImage {
+		cardCanvas, err = canvas.NewCanvas()
+		if err != nil {
+			return nil, nil, err
+		}
 
-	cardCanvas.RenderKey(passwordCard.Passphrase)
+		_, height := cardCanvas.Context.MeasureString(passwordCard.Header)
+		cardCanvas.ColorizeRows(height)
+		cardCanvas.RenderHeader(passwordCard.Header, height)
+		cardCanvas.Context.SetColor(image.Black)
+		cardCanvas.Context.SetFontFace(*cardCanvas.FontFace)
+		for i, row := range passwordCard.Rows {
+			cardCanvas.RenderRow(i, row, height)
+		}
+
+		cardCanvas.RenderKey(passwordCard.Passphrase)
+	}
 	return cardCanvas, passwordCard, nil
 }
 

@@ -27,7 +27,7 @@ var classicCmd = &cobra.Command{
 			syscall.Exit(1)
 		}
 
-		canvas, passwordCard, err := gen.GenerateClassicCard(withSymbols, digitsArea)
+		canvas, passwordCard, err := gen.GenerateClassicCard(withSymbols, digitsArea, true)
 		if err != nil {
 			return err
 		}
