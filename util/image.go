@@ -2,30 +2,30 @@ package util
 
 import (
 	"github.com/fogleman/gg"
+	"path/filepath"
 	"strings"
 )
 
 var supportedExtensions = map[string]bool{
-	"png":  true,
-	"jpg":  true,
-	"jpeg": true,
+	".png":  true,
+	".jpg":  true,
+	".jpeg": true,
 }
 
 const DefaultQuality = 80
 
 func SaveImage(ctx *gg.Context, path string) error {
-	parts := strings.Split(path, ".")
-	ext := strings.ToLower(parts[len(parts)-1])
+	ext := strings.ToLower(filepath.Ext(path))
 	if ext == "" || !supportedExtensions[ext] {
-		ext = "png"
+		ext = ".png"
 		path += "." + ext
 	}
 
-	if ext == "png" {
+	if ext == ".png" {
 		return ctx.SavePNG(path)
 	}
 
-	if ext == "jpg" || ext == "jpeg" {
+	if ext == ".jpg" || ext == ".jpeg" {
 		return ctx.SaveJPG(path, DefaultQuality)
 	}
 
