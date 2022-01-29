@@ -1,8 +1,8 @@
 package gen
 
 import (
-	"github.com/imanhodjaev/pwc/canvas"
 	"github.com/stretchr/testify/assert"
+	"github.com/sultaniman/pwc/canvas"
 	"testing"
 )
 

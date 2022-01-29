@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	goc "github.com/gookit/color"
-	"github.com/imanhodjaev/pwc/canvas"
 	"github.com/spf13/cobra"
+	"github.com/sultaniman/pwc/canvas"
 )
 
 const algorithmDescription = `

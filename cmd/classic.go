@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/imanhodjaev/pwc/gen"
-	"github.com/imanhodjaev/pwc/util"
 	"github.com/spf13/cobra"
+	"github.com/sultaniman/pwc/gen"
+	"github.com/sultaniman/pwc/util"
 	"os"
 	"syscall"
 )

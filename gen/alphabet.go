@@ -1,7 +1,7 @@
 package gen
 
 import (
-	"github.com/imanhodjaev/pwc/util"
+	"github.com/sultaniman/pwc/util"
 )
 
 type Alphabet struct {

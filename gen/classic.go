@@ -1,9 +1,9 @@
 package gen
 
 import (
-	"github.com/imanhodjaev/pwc/canvas"
-	"github.com/imanhodjaev/pwc/crypto"
-	"github.com/imanhodjaev/pwc/util"
+	"github.com/sultaniman/pwc/canvas"
+	"github.com/sultaniman/pwc/crypto"
+	"github.com/sultaniman/pwc/util"
 	"image"
 	"strings"
 )

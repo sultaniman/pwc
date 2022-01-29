@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/imanhodjaev/pwc/cmd"
+	"github.com/sultaniman/pwc/cmd"
 )
 
 func main() {

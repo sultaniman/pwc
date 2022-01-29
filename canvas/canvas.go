@@ -2,7 +2,7 @@ package canvas
 
 import (
 	"github.com/fogleman/gg"
-	"github.com/imanhodjaev/pwc/util"
+	"github.com/sultaniman/pwc/util"
 	"golang.org/x/image/font"
 	"image"
 	"strconv"

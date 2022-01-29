@@ -1,4 +1,4 @@
-module github.com/imanhodjaev/pwc
+module github.com/sultaniman/pwc
 
 go 1.17
 
