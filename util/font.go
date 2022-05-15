@@ -4,7 +4,6 @@ import (
 	"github.com/go-fonts/dejavu/dejavusansmono"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
-
 	"golang.org/x/image/font/sfnt"
 )
 
