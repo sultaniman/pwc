@@ -1,5 +1,6 @@
 # PWC
-![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg)
+![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg) 
+[![CodeQL](https://github.com/sultaniman/pwc/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sultaniman/pwc/actions/workflows/codeql-analysis.yml)
 
 If you need to remember dozens of passwords without having to remember all of them
 then with password cards you can have it.
