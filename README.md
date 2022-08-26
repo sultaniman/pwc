@@ -18,7 +18,7 @@ $ go build -o pwc
 ## Installation
 
 ```sh
-$ go get -u github.com/imanhodjaev/pwc
+$ go get -u github.com/sultaniman/pwc
 ```
 
 ## CLI Use
@@ -30,7 +30,7 @@ $ ./pwc classic -h
 ## Example card
 
 <p>
-<img src="https://raw.githubusercontent.com/imanhodjaev/pwc/main/example/password-card.jpg" width="400"/>
+<img src="https://raw.githubusercontent.com/sultaniman/pwc/main/example/password-card.jpg" width="400"/>
 </p>
 
 ## How it works
