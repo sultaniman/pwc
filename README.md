@@ -9,19 +9,19 @@ which have different colors, columns mapped to different symbols.
 Everything needed is to remember a combination of a symbol and a color or an index of row,
 then compose the letters and digits of your passwords from there.
 
-## Build
+## 🔨 Build
 
 ```sh
 $ go build -o pwc
 ```
 
-## Installation
+## 💾 Installation
 
 ```sh
 $ go get -u github.com/sultaniman/pwc
 ```
 
-## CLI Use
+## 🖥️ CLI Use
 
 ```sh
 $ ./pwc classic -h
@@ -33,7 +33,7 @@ $ ./pwc classic -h
 <img src="https://raw.githubusercontent.com/sultaniman/pwc/main/example/password-card.jpg" width="400"/>
 </p>
 
-## How it works
+## ❓ How it works
 
 ```sh
 $ ./pwc explain
