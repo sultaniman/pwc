@@ -18,6 +18,8 @@ $ go build -o pwc
 
 ## 💾 Installation
 
+Please download binaries from the latest release or you can also install it using go
+
 ```sh
 $ go get -u github.com/sultaniman/pwc
 ```
