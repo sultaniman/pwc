@@ -71,17 +71,16 @@ White #ffffff, Gray #c0c0c0, Red #ffc0c0, Green #c0ffc0, Yellow #ffffc0, Blue #c
 7. Magenta `#ffc0ff`,
 8. Cyan `#c0ffff`.
 
-
-| Color | HEX |
-|------|-----|
-| $\color{rgb(255,255,255)}{\textsf{White}}$ | `#ffffff` |
-| $\color{rgb(192,192,192)}{\textsf{Gray}}$ | `#c0c0c0` |
-| $\color{rgb(255,192,192)}{\textsf{Red}}$ | `#ffc0c0` |
-| $\color{rgb(192,255,192)}{\textsf{Green}}$ | `#c0ffc0` |
-| $\color{rgb(255,255,192)}{\textsf{Yellow}}$ | `#ffffc0` |
-| $\color{rgb(192,192,255)}{\textsf{Blue}}$ | `#c0c0ff` |
-| $\color{rgb(255,192,255)}{\textsf{Magenta}}$ | `#ffc0ff` |
-| $\color{rgb(192,255,255)}{\textsf{Cyan}}$ | `#c0ffff` |
+| HEX       | Color                                        |
+| --------- | -------------------------------------------- |
+| `#ffffff` | $\color{rgb(255,255,255)}{\textsf{White}}$   |
+| `#c0c0c0` | $\color{rgb(192,192,192)}{\textsf{Gray}}$    |
+| `#ffc0c0` | $\color{rgb(255,192,192)}{\textsf{Red}}$     |
+| `#c0ffc0` | $\color{rgb(192,255,192)}{\textsf{Green}}$   |
+| `#ffffc0` | $\color{rgb(255,255,192)}{\textsf{Yellow}}$  |
+| `#c0c0ff` | $\color{rgb(192,192,255)}{\textsf{Blue}}$    |
+| `#ffc0ff` | $\color{rgb(255,192,255)}{\textsf{Magenta}}$ |
+| `#c0ffff` | $\color{rgb(192,255,255)}{\textsf{Cyan}}$    |
 
 P.S. it was inspired by https://www.passwordcard.org/en.
 
