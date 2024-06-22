@@ -1,5 +1,6 @@
 # PWC
-![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg) 
+
+![Tests](https://github.com/imanhodjaev/pwc/actions/workflows/run-tests.yml/badge.svg)
 [![CodeQL](https://github.com/sultaniman/pwc/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sultaniman/pwc/actions/workflows/codeql-analysis.yml)
 
 If you need to remember dozens of passwords without having to remember all of them
@@ -71,6 +72,5 @@ White #ffffff, Gray #c0c0c0, Red #ffc0c0, Green #c0ffc0, Yellow #ffffc0, Blue #c
 8. Cyan `#c0ffff`.
 
 P.S. it was inspired by https://www.passwordcard.org/en.
-
 
 <p align="center">✨ 🚀 ✨</p>

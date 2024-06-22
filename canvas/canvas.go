@@ -1,11 +1,12 @@
 package canvas
 
 import (
+	"image"
+	"strconv"
+
 	"github.com/fogleman/gg"
 	"github.com/sultaniman/pwc/util"
 	"golang.org/x/image/font"
-	"image"
-	"strconv"
 )
 
 const (

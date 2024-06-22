@@ -1,11 +1,12 @@
 package gen
 
 import (
+	"image"
+	"strings"
+
 	"github.com/sultaniman/pwc/canvas"
 	"github.com/sultaniman/pwc/crypto"
 	"github.com/sultaniman/pwc/util"
-	"image"
-	"strings"
 )
 
 type ClassicCard struct {

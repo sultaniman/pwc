@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"syscall"
+
 	"github.com/spf13/cobra"
 	"github.com/sultaniman/pwc/gen"
 	"github.com/sultaniman/pwc/util"
-	"os"
-	"syscall"
 )
 
 var (

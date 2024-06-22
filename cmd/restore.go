@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/spf13/cobra"
 	"github.com/sultaniman/pwc/gen"
 	"github.com/sultaniman/pwc/util"
-	"io/ioutil"
-	"os"
 )
 
 var passphrase string
@@ -36,7 +36,7 @@ var restoreCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		encryptedBytes, err := ioutil.ReadFile(encryptedFile)
+		encryptedBytes, err := os.ReadFile(encryptedFile)
 		if err != nil {
 			return err
 		}
@@ -73,8 +73,6 @@ var restoreCmd = &cobra.Command{
 		}
 
 		return util.SaveImage(canvas.Context, outputFile)
-
-		return nil
 	},
 }
 

@@ -1,9 +1,6 @@
 package util
 
-import (
-	"math/rand"
-	"time"
-)
+import "math/rand"
 
 type RandRange struct {
 	Min int
@@ -18,6 +15,5 @@ func NewRandRange(min int, max int) *RandRange {
 }
 
 func (rr *RandRange) Next() int {
-	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(rr.Max-rr.Min+1) + rr.Min
 }

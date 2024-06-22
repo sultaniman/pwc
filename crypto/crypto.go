@@ -7,8 +7,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"golang.org/x/crypto/pbkdf2"
 	"strings"
+
+	"golang.org/x/crypto/pbkdf2"
 )
 
 // TODO(thanks): Encryption was adopted from https://gist.github.com/enyachoke/5c60f5eebed693d9b4bacddcad693b47

@@ -1,9 +1,10 @@
 package util
 
 import (
-	"github.com/fogleman/gg"
 	"path/filepath"
 	"strings"
+
+	"github.com/fogleman/gg"
 )
 
 var supportedExtensions = map[string]bool{

@@ -1,12 +1,8 @@
 package util
 
-import (
-	"math/rand"
-	"time"
-)
+import "math/rand"
 
 func Shuffle(inStr string) string {
-	rand.Seed(time.Now().UnixNano())
 	inRune := []rune(inStr)
 	rand.Shuffle(len(inRune), func(i, j int) {
 		inRune[i], inRune[j] = inRune[j], inRune[i]

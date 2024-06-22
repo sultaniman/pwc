@@ -1,9 +1,10 @@
 package gen
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/sultaniman/pwc/canvas"
-	"testing"
 )
 
 func TestClassicCard_Generate(t *testing.T) {
