@@ -62,15 +62,6 @@ White #ffffff, Gray #c0c0c0, Red #ffc0c0, Green #c0ffc0, Yellow #ffffc0, Blue #c
 
 ### Row colors
 
-1. White `#ffffff`,
-2. Gray `#c0c0c0`,
-3. Red `#ffc0c0`,
-4. Green `#c0ffc0`,
-5. Yellow `#ffffc0`,
-6. Blue `#c0c0ff`,
-7. Magenta `#ffc0ff`,
-8. Cyan `#c0ffff`.
-
 | HEX       | Color                                        |
 | --------- | -------------------------------------------- |
 | `#ffffff` | $\color{rgb(255,255,255)}{\textsf{White}}$   |
